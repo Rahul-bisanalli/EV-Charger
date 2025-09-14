@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CraftCharge | Precision EV Charging</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: white;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Full-Screen Charging Background */
+    .hero {
+      background: 
+        linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+        url('https://images.unsplash.com/photo-1611186871348-b1ce68580b3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') 
+        no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.12);
+    }
+    nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 2em;
+      font-weight: 700;
+      color: #1e88e5;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: -0.5px;
+    }
+    .logo span {
+      color: #f57c00;
+    }
+    .nav-links {
+      display: flex;
+      gap: 35px;
+    }
+    .nav-links a {
+      font-weight: 500;
+      color: #333;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #1e88e5;
+    }
+    .cta-button {
+      background: #1e88e5;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .cta-button:hover {
+      background: #1565c0;
+      transform: translateY(-1px);
+    }
+
+    /* Hero Content */
+    .hero h1 {
+      font-size: 3.8em;
+      margin-bottom: 16px;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      font-family: 'Poppins', sans-serif;
+      color: white;
+    }
+    .hero p {
+      font-size: 1.3em;
+      max-width: 800px;
+      margin: auto;
+      opacity: 0.95;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+
+    .hero .btn {
+      background: #f57c00;
+      color: white;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.2em;
+      display: inline-block;
+      transition: all 0.3s;
+      margin: 0 10px;
+      box-shadow: 0 6px 15px rgba(245, 124, 0, 0.3);
+    }
+    .hero .btn:hover {
+      background: #ef6c00;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(245, 124, 0, 0.5);
+    }
+
+    /* Stats Bar - Updated with Eco Impact */
+    .stats {
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 1.1em;
+    }
+    .stats-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+      gap: 20px;
+    }
+    .stat {
+      font-weight: 600;
+    }
+    .stat span {
+      color: #80d8ff;
+      font-size: 1.4em;
+    }
+
+    /* Benefits Section */
+    .benefits-section {
+      padding: 100px 20px;
+      background: white;
+      color: #333;
+      text-align: center;
+    }
+    .benefits-section h2 {
+      font-size: 2.4em;
+      color: #2c3e50;
+      margin-bottom: 50px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .benefits-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .benefit-card {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 14px;
+      width: 280px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+    }
+    .benefit-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+    .benefit-card h3 {
+      color: #f57c00;
+      margin: 15px 0;
+      font-size: 1.4em;
+    }
+    .benefit-card p {
+      color: #555;
+      font-size: 1.05em;
+    }
+
+    /* Instructions Section */
+    .instructions-section {
+      padding: 80px 20px;
+      background: #f0f5ff;
+      text-align: center;
+    }
+    .instructions-section h2 {
+      font-size: 2.4em;
+      color: #1e88e5;
+      margin-bottom: 40px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .instructions-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .instruction-card {
+      text-align: center;
+      width: 220px;
+    }
+    .instruction-card img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .instruction-card h3 {
+      color: #1e88e5;
+      margin: 12px 0;
+      font-size: 1.3em;
+    }
+    .instruction-card p {
+      color: #555;
+      font-size: 1em;
+    }
+
+    /* Charger Section */
+    .charger-section {
+      padding: 100px 20px;
+      background: #0f1b30;
+      text-align: center;
+    }
+    .charger-section h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .charger-section p {
+      max-width: 700px;
+      margin: auto;
+      color: #ccc;
+      margin-bottom: 50px;
+      font-size: 1.1em;
+    }
+
+    .charger-dashboard {
+      background: rgba(25, 40, 70, 0.95);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      color: white;
+    }
+    .live-values {
+      background: #1a3258;
+      padding: 16px;
+      border-radius: 10px;
+      margin: 20px 0;
+      font-size: 1.3em;
+      color: #bbdefb;
+    }
+    .live-values strong {
+      color: #4fc3f7;
+    }
+    #startBtn, #stopBtn {
+      padding: 14px 32px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 0 12px;
+      font-weight: 600;
+    }
+    #startBtn {
+      background: #43a047;
+      color: white;
+    }
+    #stopBtn {
+      background: #e53935;
+      color: white;
+    }
+    #startBtn:hover, #stopBtn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 1.1em;
+      background: #1e2a47;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th {
+      background: linear-gradient(135deg, #1e88e5, #1565c0);
+      color: white;
+      padding: 16px;
+    }
+    td {
+      padding: 14px;
+      text-align: center;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background: #2a3b5a;
+    }
+    tr:hover {
+      background: #3a507a;
+    }
+    .summary {
+      margin-top: 25px;
+      font-size: 1.3em;
+      color: #80d8ff;
+      font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+      background: #0a0e17;
+      color: #889;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.95em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav>
+      <div class="logo">Craft<span>Charge</span></div>
+      <div class="nav-links">
+        <a href="#benefits">Benefits</a>
+        <a href="#instructions">How to Charge</a>
+        <a href="#charger">Start Charging</a>
+        <a href="#">Support</a>
+        <a href="#" class="cta-button">Login</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>⚡ Precision Charging, Crafted for You</h1>
+    <p>Experience the future of EV charging with CraftCharge — where smart engineering meets seamless energy. Fast, reliable, and beautifully designed.</p>
+    <a href="#charger" class="btn">Start Charging Now</a>
+  </section>
+
+  <!-- Updated Stats Bar with Eco-Impact -->
+  <div class="stats">
+    <div class="stats-container">
+      <div class="stat"><span>⚡ 60s</span> Setup Time</div>
+      <div class="stat"><span>5.2M Wh</span> Energy Delivered</div>
+      <div class="stat"><span>4.1 Tonnes</span> CO₂ Saved</div>
+      <div class="stat"><span>🔧 Crafted</span> with Care</div>
+    </div>
+  </div>
+
+  <!-- Benefits Section -->
+  <section class="benefits-section" id="benefits">
+    <h2>Why Drivers Choose CraftCharge</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <h3>⚡ Smart Fast Charging</h3>
+        <p>48V DC fast charging with intelligent load balancing for maximum efficiency.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>📱 No App? No Problem</h3>
+        <p>Just scan the QR code — start charging instantly in your browser.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>💰 Transparent Pricing</h3>
+        <p>₹10 per kWh. Real-time cost tracking. No hidden fees.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>🌱 Green Energy Only</h3>
+        <p>Powered by renewable energy. Every charge helps protect the planet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instructions Section -->
+  <section class="instructions-section" id="instructions">
+    <h2>🔋 How to Charge in 4 Simple Steps</h2>
+    <div class="instructions-grid">
+      <div class="instruction-card">
+        <img src="https://images.unsplash.com/photo-1593113598332-cd288d649410?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Plug in">
+        <h3>1. Plug In</h3>
+        <p>Connect the charger to your EV securely.</p>
+      </div>
+      <div class="instruction-card">
+        <img src="https://images.unsplash.com/photo-1611186871348-b1ce68580b3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Scan QR">
+        <h3>2. Scan QR</h3>
+        <p>Use your phone to scan the station’s QR code.</p>
+      </div>
+      <div class="instruction-card">
+        <img src="https://images.unsplash.com/photo-1626817865809-3b20c60268d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Start Charging">
+        <h3>3. Start Session</h3>
+        <p>Press “Start Charging” and monitor live data.</p>
+      </div>
+      <div class="instruction-card">
+        <img src="https://images.unsplash.com/photo-1603728765809-3b20c60268d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Unplug & Go">
+        <h3>4. Unplug & Go</h3>
+        <p>Stop the session and continue your journey!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Embedded Charging Interface -->
+  <section class="charger-section" id="charger">
+    <h2>🔌 Your CraftCharge Dashboard</h2>
+    <p>Real-time monitoring of your 48V session. Transparent. Instant. Crafted with care.</p>
+
+    <div class="charger-dashboard">
+      <div class="live-values">
+        System: <strong>48V DC</strong> | Current: <strong>15A</strong> | Power: <strong>720W</strong>
+      </div>
+
+      <div style="font-size:1.6em; margin:20px 0;">
+        Total Cost: <strong>₹<span id="costDisplay">0.00</span></strong>
+      </div>
+
+      <div>
+        <button id="startBtn">▶️ Start Charging</button>
+        <button id="stopBtn" disabled>⏹️ Stop Charging</button>
+      </div>
+
+      <table id="chargingTable">
+        <thead>
+          <tr>
+            <th>Time (mm:ss)</th>
+            <th>Voltage (V)</th>
+            <th>Cost (₹)</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+
+      <div class="summary">
+        Session Time: <span id="totalTime">0:00</span> | Final Cost: ₹<span id="finalCost">0.00</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 CraftCharge. Academic Prototype | 48V Smart Fast Charging System</p>
+    <p>Engineered with precision. Powered by the future. 🌱</p>
+  </footer>
+
+  <!-- Charger Logic -->
+  <script>
+    const VOLTAGE = 48;
+    const CURRENT = 15;
+    const RATE_PER_KWH = 10;
+    let interval = null;
+    let elapsedSeconds = 0;
+    let totalCost = 0;
+
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const costDisplay = document.getElementById("costDisplay");
+    const tableBody = document.getElementById("tableBody");
+    const totalTimeDisplay = document.getElementById("totalTime");
+    const finalCostDisplay = document.getElementById("finalCost");
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function getKWhPerSecond() {
+      return (VOLTAGE * CURRENT) / 1000 / 3600;
+    }
+
+    startBtn.addEventListener("click", () => {
+      elapsedSeconds = 0;
+      totalCost = 0;
+      tableBody.innerHTML = "";
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+
+      interval = setInterval(() => {
+        elapsedSeconds++;
+        totalCost += getKWhPerSecond() * RATE_PER_KWH;
+
+        costDisplay.textContent = totalCost.toFixed(2);
+        totalTimeDisplay.textContent = formatTime(elapsedSeconds);
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${formatTime(elapsedSeconds)}</td>
+          <td>${VOLTAGE}</td>
+          <td>₹${totalCost.toFixed(2)}</td>
+        `;
+        tableBody.appendChild(row);
+        row.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 1000);
+    });
+
+    stopBtn.addEventListener("click", () => {
+      clearInterval(interval);
+      finalCostDisplay.textContent = totalCost.toFixed(2);
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+      alert(`✅ Charging Complete!\n\nDuration: ${formatTime(elapsedSeconds)}\nTotal Cost: ₹${totalCost.toFixed(2)}\nThank you for choosing CraftCharge — precision energy, crafted for you. 🌿`);
+    });
+  </script>
+
+</body>
+</html>
